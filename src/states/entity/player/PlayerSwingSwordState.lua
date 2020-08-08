@@ -58,9 +58,21 @@ end
 function PlayerSwingSwordState:update(dt)
     -- check if hitbox collides with any entities in the scene
     for k, entity in pairs(self.dungeon.currentRoom.entities) do
-        if entity:collides(self.swordHitbox) then
+        if entity:collides(self.swordHitbox) and not entity.dead then
             entity:damage(1)
             gSounds['hit-enemy']:play()
+            
+            -- Random chance to generate heart
+            if entity.dead and math.random(HEART_SPAWN_CHANCE) == 1 then
+                local heart = GameObject(
+                    GAME_OBJECT_DEFS['hearts'], entity.x, entity.y
+                )
+                heart.onConsume = function(player)
+                    player:healthUp(2)
+                    gSounds['pickup']:play()
+                end
+                table.insert(self.dungeon.currentRoom.objects, heart)
+            end
         end
     end
 

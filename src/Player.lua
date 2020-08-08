@@ -29,3 +29,10 @@ function Player:render()
     -- love.graphics.rectangle('line', self.x, self.y, self.width, self.height)
     -- love.graphics.setColor(255, 255, 255, 255)
 end
+
+--[[
+    Increase player health while keeping max health in check
+]]
+function Player:healthUp(value)
+    self.health = math.min(self.health + value, 6)
+end
