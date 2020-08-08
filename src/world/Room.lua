@@ -177,10 +177,15 @@ function Room:update(dt)
 
     for k, object in pairs(self.objects) do
         object:update(dt)
-
+        
         -- trigger collision callback on object
         if self.player:collides(object) then
-            object:onCollide()
+            if object.solid or not object.consumable then
+                object:onCollide()
+            else
+                object.onConsume(self.player)
+                table.remove(self.objects, k)
+            end
         end
     end
 end

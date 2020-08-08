@@ -62,6 +62,10 @@ end
 
 function Entity:damage(dmg)
     self.health = self.health - dmg
+
+    if self.health == 0 then
+        self.dead = true
+    end
 end
 
 function Entity:goInvulnerable(duration)
