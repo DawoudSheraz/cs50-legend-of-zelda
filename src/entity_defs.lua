@@ -69,6 +69,30 @@ ENTITY_DEFS = {
                 interval = 0.05,
                 looping = false,
                 texture = 'character-swing-sword'
+            },
+            ['pot-pick-left'] = {
+                frames = {10, 11, 12},
+                interval = 0.1,
+                looping = false,
+                texture = 'character-pot-lift'
+            },
+            ['pot-pick-right'] = {
+                frames = {4, 5, 6},
+                interval = 0.1,
+                looping = false,
+                texture = 'character-pot-lift'
+            },
+            ['pot-pick-up'] = {
+                frames = {7, 8, 9},
+                interval = 0.1,
+                looping = false,
+                texture = 'character-pot-lift'
+            },
+            ['pot-pick-down'] = {
+                frames = {1, 2, 3},
+                interval = 0.1,
+                looping = false,
+                texture = 'character-pot-lift'
             }
         }
     },
