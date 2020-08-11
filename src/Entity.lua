@@ -77,6 +77,13 @@ function Entity:changeState(name)
     self.stateMachine:change(name)
 end
 
+--[[
+    Change state with params
+]]
+function Entity:changeStateWithParams(name, params)
+    self.stateMachine:change(name, params)
+end
+
 function Entity:changeAnimation(name)
     self.currentAnimation = self.animations[name]
 end
@@ -123,7 +130,15 @@ end
 ]]
 function Entity:inYvicinity(object)
     
-    return (object.y < (self.y + self.height) and self.y  < (object.y + object.height))
+    if self.direction == 'left' then
+    print(object.y < (self.y + self.height) and (self.y + self.height)  < (object.y + object.height))
+    print(object.y < self.y and self.y < (object.y + object.height))
+    end
+    return (
+        (object.y < (self.y + self.height) and (self.y + self.height)  < (object.y + object.height))
+        or
+        (object.y < self.y and self.y < (object.y + object.height))
+    )
 end
 
 --[[
@@ -132,14 +147,13 @@ end
 function Entity:updateCoordinates(object)
 
 
-    if self.direction == 'left' and (self.x <= (object.x + object.width))  then
+    if self.direction == 'left' and (self.x <= (object.x + object.width)) then
         self.x = object.x + object.width
     elseif self.direction == 'right' and (self.x + self.width) >= object.x then
         self.x = object.x - self.width
     elseif self.direction == 'up' then
-        self.y = object.y + self.offsetY
+        self.y = object.y
     elseif self.direction == 'down' then
         self.y = object.y - self.height
     end
-    
 end
