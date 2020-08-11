@@ -1,5 +1,5 @@
 --[[
-    Player state when lifting the pot
+    Player state when attempting to lifting the pot
 ]]
 
 PlayerPotLiftState = Class{__includes = BaseState}

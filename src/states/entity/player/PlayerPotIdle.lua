@@ -19,7 +19,7 @@ function PlayerPotIdle:update(dt)
     self.entity:changeAnimation('pot-idle-' .. self.entity.direction)
 
     self.pot.x = self.entity.x
-    self.pot.y = self.entity.y - self.pot.height + 5
+    self.pot.y = self.entity.y - self.pot.height + POT_PLAYER_HEAD_YOFFSET
 
     EntityIdleState.update(self, dt)
 
