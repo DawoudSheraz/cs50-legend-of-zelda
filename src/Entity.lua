@@ -77,6 +77,13 @@ function Entity:changeState(name)
     self.stateMachine:change(name)
 end
 
+--[[
+    Change state with params
+]]
+function Entity:changeStateWithParams(name, params)
+    self.stateMachine:change(name, params)
+end
+
 function Entity:changeAnimation(name)
     self.currentAnimation = self.animations[name]
 end
@@ -116,4 +123,37 @@ function Entity:render(adjacentOffsetX, adjacentOffsetY)
     self.stateMachine:render()
     love.graphics.setColor(255, 255, 255, 255)
     self.x, self.y = self.x - (adjacentOffsetX or 0), self.y - (adjacentOffsetY or 0)
+end
+
+--[[
+    Check if entity is in Y area of the given object
+]]
+function Entity:inYvicinity(object)
+    
+    if self.direction == 'left' then
+    print(object.y < (self.y + self.height) and (self.y + self.height)  < (object.y + object.height))
+    print(object.y < self.y and self.y < (object.y + object.height))
+    end
+    return (
+        (object.y < (self.y + self.height) and (self.y + self.height)  < (object.y + object.height))
+        or
+        (object.y < self.y and self.y < (object.y + object.height))
+    )
+end
+
+--[[
+    update position based on collided object and entity's position
+]]
+function Entity:updateCoordinates(object)
+
+
+    if self.direction == 'left' and (self.x <= (object.x + object.width)) then
+        self.x = object.x + object.width
+    elseif self.direction == 'right' and (self.x + self.width) >= object.x then
+        self.x = object.x - self.width
+    elseif self.direction == 'up' then
+        self.y = object.y
+    elseif self.direction == 'down' then
+        self.y = object.y - self.height
+    end
 end

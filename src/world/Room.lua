@@ -104,6 +104,21 @@ function Room:generateObjects()
             gSounds['door']:play()
         end
     end
+
+    table.insert(self.objects, GameObject(
+        GAME_OBJECT_DEFS['pot'],
+        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                    VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                    VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+    ))
+
+    -- get a reference to the pot
+    local pot = self.objects[2]
+
+    -- define a function for the switch that will open all doors in the room
+    pot.onCollide = function()
+    end
 end
 
 --[[
@@ -173,6 +188,12 @@ function Room:update(dt)
                 gStateMachine:change('game-over')
             end
         end
+
+        for idx, object in pairs(self.objects) do
+            if entity:collides(object) and object.solid then
+                entity:updateCoordinates(object)
+            end
+        end
     end
 
     for k, object in pairs(self.objects) do
@@ -180,12 +201,17 @@ function Room:update(dt)
         
         -- trigger collision callback on object
         if self.player:collides(object) then
-            if object.solid or not object.consumable then
+            if object.solid then
+                object:onCollide()
+                self.player:updateCoordinates(object)
+                
+            else if not object.consumable then
                 object:onCollide()
             else
                 object.onConsume(self.player)
                 table.remove(self.objects, k)
             end
+        end
         end
     end
 end
