@@ -28,6 +28,13 @@ function PlayerPotIdle:update(dt)
         self.entity:changeStateWithParams('pot-walking', {
             object = self.pot
         })
+    
+
+    else if love.keyboard.wasPressed('return') then
+        self.entity:changeStateWithParams('pot-throw', {
+            object = self.pot
+        })
+        end
     end
 end
 
@@ -35,6 +42,6 @@ end
     Render entity idle and the pot on top
 ]]
 function PlayerPotIdle:render()
-    EntityIdleState.render(self)
     self.pot:render(0, 0)
+    EntityIdleState.render(self)
 end
