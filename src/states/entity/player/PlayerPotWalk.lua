@@ -47,6 +47,6 @@ end
     Render entity walk and pot on top
 ]]
 function PlayerPotWalk:render()
-    EntityWalkState.render(self)
     self.pot:render(0, 0)
+    EntityWalkState.render(self)
 end

@@ -71,3 +71,17 @@ function print_r ( t )
     end
     print()
 end
+
+--[[
+    Util function to spawn heart and add to given table
+]]
+function SpawnHeart(entity, objects)
+    local heart = GameObject(
+     GAME_OBJECT_DEFS['hearts'], entity.x, entity.y
+    )
+    heart.onConsume = function(player)
+        player:healthUp(2)
+        gSounds['pickup']:play()
+    end
+    table.insert(objects, heart)
+end

@@ -15,6 +15,7 @@ require 'src/GameObject'
 require 'src/game_objects'
 require 'src/Hitbox'
 require 'src/Player'
+require 'src/Projectile'
 require 'src/StateMachine'
 require 'src/Util'
 
@@ -33,6 +34,7 @@ require 'src/states/entity/player/PlayerWalkState'
 require 'src/states/entity/player/PlayerPotLift'
 require 'src/states/entity/player/PlayerPotWalk'
 require 'src/states/entity/player/PlayerPotIdle'
+require 'src/states/entity/player/PlayerPotThrow'
 
 require 'src/states/game/GameOverState'
 require 'src/states/game/PlayState'
@@ -77,5 +79,6 @@ gSounds = {
     ['hit-enemy'] = love.audio.newSource('sounds/hit_enemy.wav'),
     ['hit-player'] = love.audio.newSource('sounds/hit_player.wav'),
     ['door'] = love.audio.newSource('sounds/door.wav'),
-    ['pickup'] = love.audio.newSource('sounds/pickup.wav')
+    ['pickup'] = love.audio.newSource('sounds/pickup.wav'),
+    ['wall-crash'] = love.audio.newSource('sounds/wall_crash.wav')
 }
