@@ -105,19 +105,22 @@ function Room:generateObjects()
         end
     end
 
-    table.insert(self.objects, GameObject(
-        GAME_OBJECT_DEFS['pot'],
-        math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
-                    VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
-        math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
-                    VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
-    ))
+    -- Generate pots randomly
+    for count=1, POT_PER_ROOM do
+        table.insert(self.objects, GameObject(
+            GAME_OBJECT_DEFS['pot'],
+            math.random(MAP_RENDER_OFFSET_X + TILE_SIZE,
+                        VIRTUAL_WIDTH - TILE_SIZE * 2 - 16),
+            math.random(MAP_RENDER_OFFSET_Y + TILE_SIZE,
+                        VIRTUAL_HEIGHT - (VIRTUAL_HEIGHT - MAP_HEIGHT * TILE_SIZE) + MAP_RENDER_OFFSET_Y - TILE_SIZE - 16)
+        ))
 
-    -- get a reference to the pot
-    local pot = self.objects[2]
+        -- get a reference to the pot
+        local pot = self.objects[#self.objects]
 
-    -- define a function for the switch that will open all doors in the room
-    pot.onCollide = function()
+        -- define a function for the switch that will open all doors in the room
+        pot.onCollide = function()
+        end
     end
 end
 

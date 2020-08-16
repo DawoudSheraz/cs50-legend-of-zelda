@@ -57,9 +57,10 @@ function Projectile:update(dt)
     if self:isRendered() then
         self.x = self.x + (self.dx * dt)
         self.y = self.y + (self.dy * dt)
-
+        
         if math.floor(self.x) == self.endX and math.floor(self.y) == self.endY then
             self.hasReachedEnd = true
+            gSounds['wall-crash']:play()
         end
         
     end

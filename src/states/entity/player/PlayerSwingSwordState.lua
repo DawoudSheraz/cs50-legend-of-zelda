@@ -64,14 +64,7 @@ function PlayerSwingSwordState:update(dt)
             
             -- Random chance to generate heart
             if entity.dead and math.random(HEART_SPAWN_CHANCE) == 1 then
-                local heart = GameObject(
-                    GAME_OBJECT_DEFS['hearts'], entity.x, entity.y
-                )
-                heart.onConsume = function(player)
-                    player:healthUp(2)
-                    gSounds['pickup']:play()
-                end
-                table.insert(self.dungeon.currentRoom.objects, heart)
+                SpawnHeart(entity, self.dungeon.currentRoom.objects)
             end
         end
     end

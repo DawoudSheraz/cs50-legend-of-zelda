@@ -48,7 +48,26 @@ function PlayerPotThrow:enter(params)
 end
 
 function PlayerPotThrow:update(dt)
-    self.projectile:update(dt)
+
+    if self.projectile:isRendered() then
+        self.projectile:update(dt)
+
+        for k, entity in pairs(self.dungeon.currentRoom.entities) do
+            if entity:collides(self.projectile) and not entity.dead then
+                entity:damage(1)
+                gSounds['hit-enemy']:play()
+                self.projectile:markCollided()
+                
+                -- Random chance to generate heart
+                if entity.dead and math.random(HEART_SPAWN_CHANCE) == 1 then
+                    SpawnHeart(entity, self.dungeon.currentRoom.objects)
+                end
+                break
+            end
+        end
+    else
+        self.player:changeState('idle')
+    end
 end
 
 function PlayerPotThrow:render()
