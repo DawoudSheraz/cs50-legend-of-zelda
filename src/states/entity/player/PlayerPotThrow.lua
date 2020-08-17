@@ -28,7 +28,7 @@ function PlayerPotThrow:enter(params)
 
     -- Determining where the next X/Y position of the pot will be after throw
     if direction == 'up' then
-         nextY = math.max(nextY - (TILE_SIZE * 4), TOP_WALL_POSITION)
+         nextY = math.max(nextY - (TILE_SIZE * 4), TOP_WALL_POSITION - TILE_SIZE)
     elseif direction == 'down' then
         nextY = math.min(nextY + (TILE_SIZE * 4), BOTTOM_WALL_POSITION)
     elseif direction == 'right' then
